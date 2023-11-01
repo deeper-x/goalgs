@@ -2,7 +2,6 @@ package romanumbers
 
 import (
 	"fmt"
-	"log"
 	"strings"
 )
 
@@ -31,22 +30,16 @@ func getVal(inVal string) int {
 func Solution(s string) int {
 	tokens := strings.Split(s, "")
 	lt := len(tokens)
-	res := []string{}
+	tot := 0
 
-	log.Println(s)
-	for i := 0; i < len(tokens); i++ {
-
+	for i := 0; i < lt; i++ {
 		isCouple := false
 
 		if i < lt-1 {
-			//log.Println(tokens[first], tokens[second])
-
 			couple := fmt.Sprintf("%s%s", tokens[i], tokens[i+1])
-			log.Println(couple)
 			for _, v1 := range subt {
 				if couple == v1 {
-					log.Println(couple, " is a couple")
-					res = append(res, couple)
+					tot += getVal(couple)
 					i++
 					isCouple = true
 					break
@@ -58,17 +51,7 @@ func Solution(s string) int {
 			continue
 		}
 
-		log.Println(tokens[i], " is a single")
-		res = append(res, tokens[i])
-
-		log.Println(i, i+1)
-	}
-
-	log.Println(res)
-
-	tot := 0
-	for _, v := range res {
-		tot += getVal(v)
+		tot += getVal(tokens[i])
 	}
 
 	return tot
